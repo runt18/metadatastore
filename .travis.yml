@@ -23,19 +23,24 @@ before_install:
 - mkdir -p /home/travis/.config/metadatastore
 - 'echo ''port: 27017'' > /home/travis/.config/metadatastore/connection.yml'
 # CONFIGURE USEFUL ENVIRONMENTAL VARIABLES
+- export OWNER_NAME=$(IFS="/"; arr=($TRAVIS_REPO_SLUG); echo ${arr[0]})
+- export REPO_NAME=$(IFS="/"; arr=($TRAVIS_REPO_SLUG); echo ${arr[1]})
 - export CONDA_BUILD_COMMAND="conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION"
 - export GIT_FULL_HASH=`git rev-parse HEAD`
 - export CLEAN_ANACONDA_CHANNEL=false
 # SOME DEBUG OUTPUT
+- echo "OWNER_NAME=$OWNER_NAME"
+- echo "REPO_NAME=$REPO_NAME"
+- echo "TRAVIS_COMMIT=$TRAVIS_COMMIT"
 - git describe
 # INSTALL DEPS FOR BUILDING AND UPLOADING
 - conda install conda-build jinja2 anaconda-client
+- conda install -c ericdill depfinder
+- pip install https://github.com/ericdill/conda-skeletor/zipball/master#egg=conda_skeletor
 # SET UP THE TEST ENVIRONMENT
 - conda create -n testenv pip nose python=$TRAVIS_PYTHON_VERSION "pymongo=2.9" six pyyaml numpy pandas jinja2 mongoengine boltons prettytable humanize
 - source activate testenv
 - pip install coveralls codecov
-- conda install -c ericdill depfinder
-- pip install https://github.com/ericdill/conda-skeletor/zipball/master#egg=conda_skeletor
 install:
 - python setup.py install
 # SOME DEBUG OUTPUT

@@ -12,8 +12,8 @@ matrix:
   - python: 3.5
   - python: nightly
 
-  allowed_failures:
-    - nightly
+  allow_failures:
+    - python: nightly
 
 before_install:
 # INSTALL CONDA

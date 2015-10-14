@@ -40,6 +40,8 @@ install:
 - python -c "import metadatastore; print(metadatastore.__version__)"
 script:
 - python run_tests.py -v
+# NEED TO GET (AT LEAST) THE COMMITS UP TO THE MOST RECENT TAG
+- git fetch --unshallow
 - "$CONDA_BUILD_COMMAND"
 after_success:
 # UPLOAD COVERAGE DATA

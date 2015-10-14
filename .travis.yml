@@ -34,6 +34,8 @@ before_install:
 - conda create -n testenv pip nose python=$TRAVIS_PYTHON_VERSION "pymongo=2.9" six pyyaml numpy pandas jinja2 mongoengine boltons prettytable humanize
 - source activate testenv
 - pip install coveralls codecov
+- conda install -c ericdill depfinder
+- pip install https://github.com/ericdill/conda-skeletor/zipball/master#egg=conda_skeletor
 install:
 - python setup.py install
 # SOME DEBUG OUTPUT

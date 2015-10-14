@@ -12,7 +12,7 @@ matrix:
   - python: 3.5
   - python: nightly
 
-  allowed_fail:
+  allowed_failures:
     - nightly
 
 before_install:

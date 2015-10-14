@@ -44,7 +44,7 @@ before_install:
 install:
 - python setup.py install
 # SOME DEBUG OUTPUT
-- python -c "import metadatastore; print(metadatastore.__version__)"
+- python -c "import $REPO_NAME; print($REPO_NAME.__version__)"
 script:
 - python run_tests.py -v
 # NEED TO GET (AT LEAST) THE COMMITS UP TO THE MOST RECENT TAG
@@ -55,14 +55,14 @@ after_success:
 - coveralls
 - codecov
 - source deactivate
-# CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/METADATASTORE AND UPLOAD CONDA BINARY
+# CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/$REPO_NAME AND UPLOAD CONDA BINARY
 # IF WE ARE ON THE MASTER BRANCH OF THE NSLS-II REPOSITORY AND THIS IS NOT A
 # PULL REQUEST
 - git clone https://github.com/ericdill/travis-little-helper
 - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
     $CONDA_BUILD_COMMAND --output | bash travis-little-helper/anaconda-version-string.sh > version;
     anaconda login --username nsls2builder --password $ANACONDA_PASS --hostname "$TRAVIS_PYTHON_VERSION-`cat version`";
-    bash travis-little-helper/clean-anaconda-channel.sh lightsource2-dev metadatastore $CLEAN_ANACONDA_CHANNEL;
+    bash travis-little-helper/clean-anaconda-channel.sh lightsource2-dev $REPO_NAME $CLEAN_ANACONDA_CHANNEL;
     anaconda upload -u lightsource2-dev `$CONDA_BUILD_COMMAND --output`;
     anaconda logout;
   fi;

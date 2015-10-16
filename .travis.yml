@@ -95,7 +95,7 @@ after_success:
   - source activate testenv
   - pip install coveralls codecov
   - coveralls
-  - codecov
+  - codecov -X gcov
   - source deactivate
 
   # CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/METADATASTORE AND UPLOAD CONDA BINARY

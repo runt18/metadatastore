@@ -95,8 +95,8 @@ after_success:
   - find ~/ -name .coverage -exec cp {} . \;
   - ls -la
   - source activate testenv
-  - coverage xml -i
   - pip install coveralls codecov
+  - coverage xml -i
   - coveralls
   - codecov -X gcov
   - source deactivate

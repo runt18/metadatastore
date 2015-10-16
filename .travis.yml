@@ -33,6 +33,8 @@ matrix:
 
 
 before_install:
+  - git fetch --unshallow
+  - git describe
   - ls
   - env
   - echo $PYMONGO

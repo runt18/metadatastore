@@ -126,7 +126,6 @@ def test_event_descriptor_insertion():
 
 
 def test_insert_run_start():
-    raise ValueError("Let's see if this makes travis fail")
     time = ttime.time()
     beamline_id = 'sample_beamline'
     scan_id = 42

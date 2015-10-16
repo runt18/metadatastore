@@ -81,7 +81,7 @@ install:
   # - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
   # - conda install `$CONDA_BUILD_COMMAND --output`
   # - conda remove $REPO_NAME
-  - conda install `python ../travis-little-helper/install_test_deps.py -p conda-recipe/meta.yaml`
+  - conda install `python ../travis-little-helper/list_test_deps.py -p conda-recipe/meta.yaml`
   - python setup.py install
   # - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
   # # - python setup.py install

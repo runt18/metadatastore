@@ -91,7 +91,9 @@ script:
 
 after_success:
   # UPLOAD COVERAGE DATA
+  - ls -la
   - find ~/ -name .coverage -exec cp {} . \;
+  - ls -la
   - source activate testenv
   - pip install coveralls codecov
   - coveralls

@@ -33,6 +33,7 @@ matrix:
 
 
 before_install:
+  - env
   # `git describe` failed a couple of times if I don't `git fetch --unshallow`
   - git fetch --unshallow
   # GRAB THE HELPER SCRIPTS

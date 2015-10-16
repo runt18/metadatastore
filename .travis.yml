@@ -33,6 +33,7 @@ matrix:
 
 
 before_install:
+  - ls
   - env
   - echo $PYMONGO
   - git clone https://github.com/ericdill/travis-little-helper ../travis-little-helper

@@ -11,21 +11,21 @@ matrix:
   fast_finish: true
   include:
   - python: 2.7
-    env: PYMONGO=<3
+    env: "PYMONGO=<3"
   - python: 2.7
-    env: PYMONGO=>3
+    env: "PYMONGO=>3"
   - python: 3.4
-    env: PYMONGO=<3
+    env: "PYMONGO=<3"
   - python: 3.4
-    env: PYMONGO=>3
+    env: "PYMONGO=>3"
   - python: 3.5
-    env: PYMONGO=<3
+    env: "PYMONGO=<3"
   - python: 3.5
-    env: PYMONGO=>3
+    env: "PYMONGO=>3"
   - python: nightly
-    env: PYMONGO=<3
+    env: "PYMONGO=<3"
   - python: nightly
-    env: PYMONGO=>3
+    env: "PYMONGO=>3"
 
   allow_failures:
     - python: nightly
@@ -33,6 +33,8 @@ matrix:
 
 
 before_install:
+  
+  - echo $PYMONGO
   # INSTALL CONDA
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
@@ -42,14 +44,14 @@ before_install:
   - conda update conda --yes
   - conda config --add channels lightsource2
   - conda config --add channels lightsource2-dev
-
+  
   # DO SOME METADATASTORE SPECIFIC CONFIGURATION
   - export MDS_HOST=localhost
   - export MDS_DATABASE=test
   - export MDS_TIMEZONE=US/Eastern
   - mkdir -p /home/travis/.config/metadatastore
   - 'echo ''port: 27017'' > /home/travis/.config/metadatastore/connection.yml'
-
+  
   # CONFIGURE USEFUL ENVIRONMENTAL VARIABLES
   - export OWNER_NAME=$(IFS="/"; arr=($TRAVIS_REPO_SLUG); echo ${arr[0]})
   - export REPO_NAME=$(IFS="/"; arr=($TRAVIS_REPO_SLUG); echo ${arr[1]})
@@ -69,8 +71,6 @@ before_install:
   - conda create -n testenv pip nose python=$TRAVIS_PYTHON_VERSION "pymongo=2.9" six pyyaml numpy pandas jinja2 mongoengine boltons prettytable humanize
   - source activate testenv
   - pip install coveralls codecov
-
-  - echo $PYMONGO
   - conda install "pymongo$PYMONGO"
 
 install:
@@ -89,7 +89,7 @@ after_success:
   - coveralls
   - codecov
   - source deactivate
-
+  
   # CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/METADATASTORE AND UPLOAD CONDA BINARY
   # IF WE ARE ON THE MASTER BRANCH OF THE NSLS-II REPOSITORY AND THIS IS NOT A
   # PULL REQUEST
@@ -101,7 +101,7 @@ after_success:
       anaconda upload -u lightsource2-dev `$CONDA_BUILD_COMMAND --output`;
       anaconda logout;
     fi;
-
+  
 
 env:
   global:

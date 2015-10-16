@@ -35,6 +35,8 @@ matrix:
 before_install:
   - env
   - echo $PYMONGO
+  - cd ..
+  - git clone https://github.com/ericdill/travis-little-helper ../travis-little-helper
   # INSTALL CONDA
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
@@ -77,9 +79,10 @@ before_install:
   # - conda install "pymongo$PYMONGO"
 
 install:
-  - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
-  - conda install `$CONDA_BUILD_COMMAND --output`
-  - conda remove $REPO_NAME
+  # - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
+  # - conda install `$CONDA_BUILD_COMMAND --output`
+  # - conda remove $REPO_NAME
+  - conda install `python ../travis-little-helper/install_test_deps.py -p conda-recipe/meta.yaml`
   - python setup.py install
   # - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
   # # - python setup.py install
@@ -109,11 +112,10 @@ after_success:
   # CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/METADATASTORE AND UPLOAD CONDA BINARY
   # IF WE ARE ON THE MASTER BRANCH OF THE NSLS-II REPOSITORY AND THIS IS NOT A
   # PULL REQUEST
-  - git clone https://github.com/ericdill/travis-little-helper
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-      $CONDA_BUILD_COMMAND --output | bash travis-little-helper/anaconda-version-string.sh > version;
+      $CONDA_BUILD_COMMAND --output | bash ../travis-little-helper/anaconda-version-string.sh > version;
       anaconda login --username nsls2builder --password $ANACONDA_PASS --hostname "$TRAVIS_PYTHON_VERSION-`cat version`";
-      bash travis-little-helper/clean-anaconda-channel.sh lightsource2-dev $REPO_NAME $CLEAN_ANACONDA_CHANNEL;
+      bash ../travis-little-helper/clean-anaconda-channel.sh lightsource2-dev $REPO_NAME $CLEAN_ANACONDA_CHANNEL;
       anaconda upload -u lightsource2-dev `$CONDA_BUILD_COMMAND --output`;
       anaconda logout;
     fi;

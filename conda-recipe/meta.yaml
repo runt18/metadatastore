@@ -2,19 +2,20 @@
 
 package:
   name: metadatastore
-  version: v0.2.0.post74+dirty
+  version: v0.2.0.post92+dirty
 
 source:
   git_url: https://github.com/NSLS-II/metadatastore
-  git_rev: 899b5adef4529258cff2a09448aab76b3a3ea6ab
+  git_rev: d3a84220561b0b5ca9912bc1ce7810474e0eb9b8
 
   patches:
     - config.patch
-
 build:
-# TODO add entry points
   number: 0
+
   string: {{ environ.get('GIT_BUILD_STR', '') }}_py{{ py }}
+
+  # TODO add entry points
 
 requirements:
   build:
@@ -23,17 +24,22 @@ requirements:
     - python
     - boltons
     - mongoengine
+    - pymongo <3
     - pytz
     - pyyaml
     - six
 
 test:
   requires:
+    - boltons
+    - coverage
+    - mongoengine
     - nose
     - numpy
-    - pytz
     - pymongo <3
-    - coverage
+    - pytz
+    - pyyaml
+    - six
 
   imports:
     - metadatastore

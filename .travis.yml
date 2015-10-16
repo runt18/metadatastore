@@ -29,7 +29,7 @@ matrix:
 
   allow_failures:
     - python: nightly
-    - env: PYMONGO=>3
+    - env: PYMONGO=">3"
 
 
 before_install:

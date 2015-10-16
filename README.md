@@ -2,6 +2,10 @@
 [![Coverage Status](https://coveralls.io/repos/NSLS-II/metadatastore/badge.svg?branch=master)](https://coveralls.io/r/NSLS-II/metadatastore?branch=master)
 [![Code Health](https://landscape.io/github/NSLS-II/metadatastore/master/landscape.svg?style=flat)](https://landscape.io/github/NSLS-II/metadatastore/master)
 
+Dev build: [![Binstar Badge](https://anaconda.org/lightsource2-dev/metadatastore/badges/version.svg)](https://anaconda.org/lightsource2-dev/metadatastore)
+
+Latest tagged release: [![Binstar Badge](https://anaconda.org/lightsource2/metadatastore/badges/version.svg)](https://anaconda.org/lightsource2/metadatastore)
+
 
 # metadatastore
 NSLS2 Beamlines metadatastore prototype implemented in MongoDB.

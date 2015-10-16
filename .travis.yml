@@ -99,8 +99,10 @@ after_success:
   # IF WE ARE ON THE MASTER BRANCH OF THE NSLS-II REPOSITORY AND THIS IS NOT A
   # PULL REQUEST
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+      export ANACONDA_HOSTNAME="$TRAVIS_PYTHON_VERSION-`cat version`";
+      echo $ANACONDA_HOSTNAME;
       $CONDA_BUILD_COMMAND --output | bash ../travis-little-helper/anaconda-version-string.sh > version;
-      anaconda login --username nsls2builder --password $ANACONDA_PASS --hostname "$TRAVIS_PYTHON_VERSION-`cat version`";
+      anaconda login --username nsls2builder --password $ANACONDA_PASS --hostname $ANACONDA_HOSTNAME;
       bash ../travis-little-helper/clean-anaconda-channel.sh lightsource2-dev $REPO_NAME $CLEAN_ANACONDA_CHANNEL;
       anaconda upload -u lightsource2-dev `$CONDA_BUILD_COMMAND --output`;
       anaconda logout;

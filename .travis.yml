@@ -77,28 +77,33 @@ before_install:
   # - conda install "pymongo$PYMONGO"
 
 install:
+  - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
+  - conda install `$CONDA_BUILD_COMMAND --output`
+  - conda remove $REPO_NAME
+  - python setup.py install
   # - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
   # # - python setup.py install
   # # SOME DEBUG OUTPUT
   # - python -c "import $REPO_NAME; print($REPO_NAME.__version__)"
 
 script:
-  - conda build conda-recipe --python=$TRAVIS_PYTHON_VERSION
-  # - python run_tests.py -v
+  - python run_tests.py -v
   # NEED TO GET (AT LEAST) THE COMMITS UP TO THE MOST RECENT TAG
   # - git fetch --unshallow
   # - "$CONDA_BUILD_COMMAND"
 
 after_success:
   # UPLOAD COVERAGE DATA
-  - ls -la
-  - find ~/ -name .coverage -exec cp {} . \;
-  - ls -la
+  # - ls -la
+  # - find ~/ -name .coverage -exec cp {} . \;
+  # - ls -la
   - source activate testenv
   - pip install coveralls codecov
-  - coverage xml -i .coverage
+  # - coverage xml -i .coverage
+  # - coveralls debug
+  # - codecov -X gcov
   - coveralls
-  - codecov -X gcov
+  - codecov
   - source deactivate
 
   # CLEAN ANACONDA.ORG/LIGHTSOURCE2-DEV/METADATASTORE AND UPLOAD CONDA BINARY

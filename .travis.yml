@@ -91,6 +91,7 @@ script:
 
 after_success:
   # UPLOAD COVERAGE DATA
+  - cp ~/mc/conda-bld/test-temp_dir/.coverage .
   - source activate testenv
   - pip install coveralls codecov
   - coveralls

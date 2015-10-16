@@ -33,7 +33,7 @@ matrix:
 
 
 before_install:
-
+  - env
   - echo $PYMONGO
   # INSTALL CONDA
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
@@ -68,7 +68,7 @@ before_install:
   - conda install -c ericdill depfinder
   - pip install https://github.com/ericdill/conda-skeletor/zipball/master#egg=conda_skeletor
   # SET UP THE TEST ENVIRONMENT
-  - wget https://github.com/ericdill/conda-skeletor-configs/metadatastore/conda-skeletor.yml
+  - wget https://raw.githubusercontent.com/ericdill/conda-skeletor-configs/master/metadatastore/conda-skeletor.yml
   - conda create -n testenv python=$TRAVIS_PYTHON_VERSION depfinder
   - source activate testenv
   - pip install https://github.com/ericdill/conda-skeletor/zipball/master#egg=conda_skeletor

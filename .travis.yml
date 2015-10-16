@@ -91,6 +91,8 @@ script:
 
 after_success:
   # UPLOAD COVERAGE DATA
+  - source activate testenv
+  - pip install coveralls codecov
   - coveralls
   - codecov
   - source deactivate

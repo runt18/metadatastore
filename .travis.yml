@@ -35,7 +35,6 @@ matrix:
 before_install:
   - env
   - echo $PYMONGO
-  - cd ..
   - git clone https://github.com/ericdill/travis-little-helper ../travis-little-helper
   # INSTALL CONDA
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh

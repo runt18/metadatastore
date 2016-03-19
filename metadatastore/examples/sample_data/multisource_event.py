@@ -32,8 +32,8 @@ def run(run_start=None, sleep=0):
     ev_desc2_uid = insert_descriptor(run_start=run_start,
                                            data_keys=data_keys2, time=common.get_time(),
                                            uid=str(uuid.uuid4()))
-    print('event descriptor 1 uid = %s' % ev_desc1_uid)
-    print('event descriptor 2 uid = %s' % ev_desc2_uid)
+    print('event descriptor 1 uid = {0!s}'.format(ev_desc1_uid))
+    print('event descriptor 2 uid = {0!s}'.format(ev_desc2_uid))
     # Create Events.
     events = []
 
@@ -75,5 +75,5 @@ if __name__ == '__main__':
                                           time=0.,
                                           uid=str(uuid.uuid4()),)
 
-    print('run_start_uid = %s' % run_start_uid)
+    print('run_start_uid = {0!s}'.format(run_start_uid))
     run(run_start_uid)

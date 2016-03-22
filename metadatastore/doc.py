@@ -169,7 +169,7 @@ def vstr(doc, indent=0):
     ]
     name = doc['_name']
 
-    ret = "\n%s\n%s" % (name, headings[indent]*len(name))
+    ret = "\n{0!s}\n{1!s}".format(name, headings[indent]*len(name))
 
     documents = []
     name_width = 16
@@ -180,7 +180,7 @@ def vstr(doc, indent=0):
             for val in value:
                 documents.append((name, val))
         elif name == 'data_keys':
-            ret += "\n%s" % str(_format_data_keys_dict(value))
+            ret += "\n{0!s}".format(str(_format_data_keys_dict(value)))
         elif isinstance(value, collections.Mapping):
             if '_name' in value:
                 documents.append((name, value))
@@ -193,10 +193,10 @@ def vstr(doc, indent=0):
             ret += ("\n%-{}s: %-{}s".format(name_width, value_width) %
                     (name[:16], value))
     for name, value in documents:
-        ret += "\n%s" % (vstr(value, indent+1))
+        ret += "\n{0!s}".format((vstr(value, indent+1)))
         # ret += "\n"
     ret = ret.split('\n')
-    ret = ["%s%s" % ('  '*indent, line) for line in ret]
+    ret = ["{0!s}{1!s}".format('  '*indent, line) for line in ret]
     ret = "\n".join(ret)
     return ret
 
